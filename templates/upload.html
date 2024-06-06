@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload JSON File</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #ff7e5f, #feb47b); /* Gradient background */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        input[type="file"] {
+            display: none;
+        }
+        label.upload-label {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        label.upload-label:hover {
+            background-color: #45a049;
+        }
+        button[type="submit"] {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .uploading-message {
+            display: none;
+            color: #333;
+            font-weight: bold;
+        }
+        .uploading-spinner {
+            display: none;
+            margin-top: 20px;
+        }
+        .heart {
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Upload Your Datasets</h2> 
+        <label for="json-file" class="upload-label">Choose File</label>
+        <form action="/uploadtweets/" method="post" enctype="multipart/form-data" id="upload-form">
+            {% csrf_token %}
+            <input type="file" name="json_file" id="json-file" accept=".json" required>
+            <button type="submit" id="upload-button">Upload</button>
+            <div class="uploading-message" id="uploading-message">Uploading...</div>
+            <div class="uploading-spinner" id="uploading-spinner"> <!-- This can be replaced with a loading animation -->
+                <svg width="40px" height="40px" viewBox="0 0 50 50">
+                    <circle cx="25" cy="25" r="20" fill="none" stroke-width="5" stroke="#4CAF50" stroke-linecap="round">
+                        <animate attributeName="stroke-dashoffset" dur="2s" repeatCount="indefinite" from="0" to="502"></animate>
+                    </circle>
+                </svg>
+            </div>
+        </form>
+        <div>
+            <p>Sonu Kumar, Bhupendra Kumar,  Kannu Priya, Atiullha Ansari</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('json-file').addEventListener('change', function() {
+            document.getElementById('upload-button').style.display = 'inline-block';
+        });
+
+        document.getElementById('upload-form').addEventListener('submit', function() {
+            document.getElementById('upload-button').style.display = 'none';
+            document.getElementById('uploading-message').style.display = 'block';
+            document.getElementById('uploading-spinner').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

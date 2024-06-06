@@ -1,0 +1,98 @@
+<!-- index.html -->
+{% extends "layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<!-- Your existing HTML code -->
+
+<div class="row g-4 mb-4">
+    <div class="col-12 col-lg-6">
+        <div class="app-card app-card-chart h-100 shadow-sm">
+            <div class="app-card-header p-3">
+                <div class="row justify-content-between align-items-center">
+                    <div class="col-auto">
+                        <h4 class="app-card-title">Top Hashtags Bar Chart</h4>
+                    </div><!--//col-->
+                </div><!--//row-->
+            </div><!--//app-card-header-->
+            <div class="app-card-body p-3 p-lg-4">
+                <div class="chart-container">
+                    <canvas id="canvas-barchart"></canvas>
+                </div>
+            </div><!--//app-card-body-->
+        </div><!--//app-card-->
+    </div><!--//col-->
+</div><!--//row-->
+
+<script>
+    'use strict';
+
+    // Your existing JavaScript code
+
+    // Chart.js Bar Chart Example 
+    var barChartConfig = {
+        type: 'bar',
+        data: {
+            labels: [1,2,3,5,6,8,9],
+            datasets: [{
+                label: 'Tweet Count',
+                backgroundColor: window.chartColors.green,
+                borderColor: window.chartColors.green,
+                borderWidth: 1,
+                maxBarThickness: 16,
+                data: [1,2,4,5,7,87,89],
+            }]
+        },
+        options: {
+            responsive: true,
+            aspectRatio: 1.5,
+            legend: {
+                display: true,
+                position: 'bottom',
+                align: 'end',
+            },
+            title: {
+                display: true,
+                text: 'Top Hashtags Bar Chart'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+                titleMarginBottom: 10,
+                bodySpacing: 10,
+                xPadding: 16,
+                yPadding: 16,
+                borderColor: window.chartColors.border,
+                borderWidth: 1,
+                backgroundColor: '#fff',
+                bodyFontColor: window.chartColors.text,
+                titleFontColor: window.chartColors.text,
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    gridLines: {
+                        drawBorder: false,
+                        color: window.chartColors.border,
+                    },
+                }],
+                yAxes: [{
+                    display: true,
+                    gridLines: {
+                        drawBorder: false,
+                        color: window.chartColors.borders,
+                    },
+                }]
+            }
+        }
+    };
+
+    // Generate chart on load
+    window.addEventListener('load', function () {
+        var barChart = document.getElementById('canvas-barchart').getContext('2d');
+        window.myBar = new Chart(barChart, barChartConfig);
+    });
+</script>
+
+{% endblock body %}
